@@ -1,17 +1,30 @@
 import { useDispatch, useSelector } from "react-redux";
 import { changeActiveCategory } from "../../store/modules/platStore";
-import { TabMenu } from "primereact/tabmenu";
 const Menu = () => {
-  const categories = useSelector((state) => state.plat.categories);
-  const items = [];
-  for (let category of categories) {
-    items.push({ label: category });
-  }
+  const { categories, activeCategory } = useSelector((state) => state.plat);
+  const dispatch = useDispatch();
   return (
-    <TabMenu
-      className=" menu flex flex-row align-items-center justify-content-around w-screen h-10rem p-5"
-      model={items}
-    />
+    <div className="menu">
+      {/* <TabMenu className="menu" model={items} /> */}
+      {categories.map((item) => {
+        return (
+          <div
+            key={item}
+            className="menuItem"
+            style={{
+              backgroundColor:
+                activeCategory === item
+                  ? "var(--orange-800)"
+                  : "var(--blue-600)",
+            }}
+            onClick={() => dispatch(changeActiveCategory(item))}
+          >
+            <i className=" pi pi-fw pi-list"></i>
+            {item}
+          </div>
+        );
+      })}
+    </div>
   );
 };
 export default Menu;

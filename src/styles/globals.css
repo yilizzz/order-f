@@ -29,23 +29,39 @@ a:visited {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  overflow: scroll;
+  height: 80vh;
+}
+.menu,
+.menuItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .menu {
-  background: var(--blue-800);
+  width: 100%;
+  background: var(--blue-900);
+  justify-content: space-evenly;
+  height: 10rem;
+  margin-bottom: 20px;
+}
+.menuItem {
+  width: 23vw;
+  height: 80%;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.category {
+  width: 100%;
 }
 .main {
   overflow: scroll;
 }
-/* Media query for screens with a maximum width of 1199px */
+/* Media query for screens with a maximum width of 991px */
 @media (max-width: 991px) {
   .plats {
     flex-direction: column;
   }
 }
 /* Media query for screens with a maximum width of 750px */
-/* @media (max-width: 750px) {
-  .detail1 {
-    width: 70vw;
-    min-height: 300px;
-  }
-} */

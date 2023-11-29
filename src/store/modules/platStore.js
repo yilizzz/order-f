@@ -6,7 +6,7 @@ const platStore = createSlice({
   initialState: {
     platList: [],
     categories: [],
-    activeCategory: 0,
+    activeCategory: "Plat",
   },
   reducers: {
     setPlats(state, action) {
