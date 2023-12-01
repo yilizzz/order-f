@@ -1,24 +1,32 @@
 // import "./App.css";
 import { Image } from "primereact/image";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPlatList } from "./store/modules/platStore";
+import { fetchPlatList, addCart } from "./store/modules/platStore";
 import Menu from "./components/Menu";
 import { useEffect } from "react";
-import "./styles/globals.css";
+import Count from "./components/Count";
+import Cart from "./components/Cart";
+
 function App() {
-  const { platList, activeCategory } = useSelector((state) => state.plat);
+  const { platList, activeCategory, cartList } = useSelector(
+    (state) => state.plat
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPlatList());
   }, [dispatch]);
+
   return (
-    <div className="flex flex-column justify-content-center align-items-center h-screen w-screen">
+    <div className="page">
       <Menu></Menu>
       <div className="plats">
         {platList.map(
           (item) =>
             activeCategory === item.category && (
-              <div key={item.id}>
+              <div
+                key={item.id}
+                className="flex flex-column justify-content-start align-items-center h-25rem w-16rem border-1 border-green-400 border-round-md m-2 p-3"
+              >
                 <Image
                   src={item.image}
                   alt="Image"
@@ -26,13 +34,28 @@ function App() {
                   height="200"
                   preview
                 />
-                {item.name}
-                {item.price}
-                <button>+</button>
+
+                <div className="flex flex-column m-5 gap-2">
+                  <span>{item.name}</span>
+                  <span>price: {item.price}</span>
+                  <Count
+                    count={
+                      cartList.find((plat) => plat.name === item.name)?.count ||
+                      0
+                    }
+                    onPlus={() =>
+                      dispatch(addCart({ name: item.name, State: "Plus" }))
+                    }
+                    onMinus={() =>
+                      dispatch(addCart({ name: item.name, State: "Minus" }))
+                    }
+                  />
+                </div>
               </div>
             )
         )}
       </div>
+      <Cart />
     </div>
   );
 }

@@ -1,0 +1,29 @@
+.menu,
+.menuItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--teal-200);
+}
+.menu {
+  width: 100%;
+  background: var(--blue-900);
+  justify-content: space-evenly;
+  height: 10rem;
+  margin-bottom: 20px;
+}
+.menuItem {
+  width: 23vw;
+  height: 80%;
+  border-radius: 10px;
+  justify-content: center;
+  cursor: pointer;
+}
+@media (max-width: 991px) {
+  .menu {
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 20%;
+  }
+}

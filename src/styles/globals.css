@@ -8,12 +8,13 @@ html,
 body {
   width: 100vw;
   height: 100vh;
-  background-color: var(--blue-300);
+  background-color: var(--green-50);
   overflow-x: hidden;
   /* Each PrimeReact theme has its own font family so it is suggested to apply it */
   font-family: var(--font-family);
   display: flex;
   flex-direction: column;
+  color: var(--indigo-800);
 }
 
 img {
@@ -25,43 +26,38 @@ a {
 a:visited {
   color: var(--highlight-text-color);
 }
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
 .plats {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   overflow: scroll;
   height: 80vh;
-}
-.menu,
-.menuItem {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.menu {
-  width: 100%;
-  background: var(--blue-900);
-  justify-content: space-evenly;
-  height: 10rem;
-  margin-bottom: 20px;
-}
-.menuItem {
-  width: 23vw;
-  height: 80%;
-  border-radius: 10px;
-  justify-content: center;
+  width: 100vw;
+  margin: 2rem;
 }
 
-.category {
+/* .category {
   width: 100%;
 }
 .main {
   overflow: scroll;
-}
+} */
 /* Media query for screens with a maximum width of 991px */
 @media (max-width: 991px) {
+  .page {
+    flex-direction: row;
+  }
   .plats {
     flex-direction: column;
+    flex-wrap: nowrap;
   }
 }
 /* Media query for screens with a maximum width of 750px */
