@@ -20,7 +20,7 @@ const platStore = createSlice({
     },
     addCart(state, action) {
       const item = state.cartList.find(
-        (item) => item.name === action.payload.name
+        (item) => item.plat.id === action.payload.id
       );
       // If this plat has been added
       if (item) {
@@ -36,7 +36,10 @@ const platStore = createSlice({
         }
         // Add a new plat
       } else {
-        state.cartList.push({ name: action.payload.name, count: 1 });
+        state.cartList.push({
+          plat: action.payload.plat,
+          count: 1,
+        });
       }
     },
   },

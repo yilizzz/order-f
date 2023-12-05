@@ -40,14 +40,18 @@ function App() {
                   <span>price: {item.price}</span>
                   <Count
                     count={
-                      cartList.find((plat) => plat.name === item.name)?.count ||
-                      0
+                      cartList.find((list) => list.plat.id === item.id)
+                        ?.count || 0
                     }
                     onPlus={() =>
-                      dispatch(addCart({ name: item.name, State: "Plus" }))
+                      dispatch(
+                        addCart({ id: item.id, plat: item, State: "Plus" })
+                      )
                     }
                     onMinus={() =>
-                      dispatch(addCart({ name: item.name, State: "Minus" }))
+                      dispatch(
+                        addCart({ id: item.id, plat: item, State: "Minus" })
+                      )
                     }
                   />
                 </div>
