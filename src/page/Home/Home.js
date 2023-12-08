@@ -1,13 +1,13 @@
 // import "./App.css";
 import { Image } from "primereact/image";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPlatList, addCart } from "./store/modules/platStore";
-import Menu from "./components/Menu";
+import { fetchPlatList, addCart } from "../../store/modules/platStore";
+import Menu from "../../components/Menu";
 import { useEffect } from "react";
-import Count from "./components/Count";
-import Cart from "./components/Cart";
+import Count from "../../components/Count";
+import Cart from "../../components/Cart";
 
-function App() {
+const Home = () => {
   const { platList, activeCategory, cartList } = useSelector(
     (state) => state.plat
   );
@@ -62,6 +62,6 @@ function App() {
       <Cart />
     </div>
   );
-}
+};
 
-export default App;
+export default Home;
