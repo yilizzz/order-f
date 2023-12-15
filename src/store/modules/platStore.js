@@ -45,8 +45,7 @@ const platStore = createSlice({
   },
 });
 
-const { setPlats, changeActiveCategory, addCart, changeCount } =
-  platStore.actions;
+const { setPlats, changeActiveCategory, addCart } = platStore.actions;
 
 const fetchPlatList = () => {
   return async (dispatch) => {
@@ -55,6 +54,6 @@ const fetchPlatList = () => {
   };
 };
 
-export { fetchPlatList, changeActiveCategory, addCart, changeCount };
+export { fetchPlatList, changeActiveCategory, addCart };
 const reducer = platStore.reducer;
 export default reducer;

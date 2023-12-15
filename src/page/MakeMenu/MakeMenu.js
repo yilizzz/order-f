@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPlatList } from "../../store/modules/platStore";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
@@ -11,14 +13,16 @@ const MakeMenu = () => {
   const [price, setPrice] = useState();
   const [picture, setPicture] = useState();
 
-  // Define the options for the category dropdown
-  const categories = [
-    { name: "appetizer", code: "Appetizer" },
-    { name: "main", code: "Main Course" },
-    { name: "dessert", code: "Dessert" },
-    { name: "drink", code: "Drink" },
-  ];
+  const { categories } = useSelector((state) => state.plat);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchPlatList());
+  }, [dispatch]);
+  const categoryOptions = categories.map((item) => ({
+    name: item,
+    code: item,
+  }));
   // Define the handler functions for the form fields
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -58,7 +62,7 @@ const MakeMenu = () => {
             <Dropdown
               value={category}
               onChange={handleCategoryChange}
-              options={categories}
+              options={categoryOptions}
               optionLabel="name"
               editable
               placeholder="Select a Category"
@@ -73,8 +77,8 @@ const MakeMenu = () => {
               value={price}
               onValueChange={handlePriceChange}
               mode="currency"
-              currency="USD"
-              locale="en-US"
+              currency="EUR"
+              locale="fr-FR"
             />
           </div>
           <div className="p-inputgroup flex-1">
