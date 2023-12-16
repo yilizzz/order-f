@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPlatList } from "../../store/modules/platStore";
 import { Card } from "primereact/card";
@@ -6,12 +6,14 @@ import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
 import { Dropdown } from "primereact/dropdown";
+import { Button } from "primereact/button";
+import axios from "axios";
 const MakeMenu = () => {
   // Define the states for the form fields
   const [name, setName] = useState();
   const [category, setCategory] = useState();
   const [price, setPrice] = useState();
-  const [picture, setPicture] = useState();
+  const fileUploadRef = useRef(null);
 
   const { categories } = useSelector((state) => state.plat);
   const dispatch = useDispatch();
@@ -36,10 +38,40 @@ const MakeMenu = () => {
     setPrice(event.value);
   };
 
-  const handlePictureUpload = (event) => {
-    setPicture(URL.createObjectURL(event.files[0]));
-  };
+  let formData = new FormData();
+  const handleSubmit = async () => {
+    const list = fileUploadRef.current.getFiles();
+    formData.append("file", list[0]);
 
+    // Append other data to the formData object
+    formData.append("category", category.name);
+    formData.append("name", name);
+    formData.append("price", price);
+
+    try {
+      const res = await axios({
+        method: "post",
+        url: "http://localhost:3001/plats",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+      console.error(error.response);
+    }
+  };
+  const handleDelete = () => {
+    axios({
+      method: "delete",
+      url: "http://localhost:3001/plats/23",
+
+      headers: { "Content-Type": "application/json" },
+      responseType: "json",
+    });
+  };
   // Render the form component
   return (
     <div className="flex flex-column justify-content-start align-items-center">
@@ -86,14 +118,17 @@ const MakeMenu = () => {
               <span>Picture</span>
             </span>
             <FileUpload
+              ref={fileUploadRef}
               name="picture"
-              onUpload={handlePictureUpload}
               accept="image/*"
               maxFileSize={1000000}
+              mode="basic"
             />
           </div>
         </form>
+        <Button label="Submit" onClick={handleSubmit}></Button>
       </Card>
+      <Button label="delete" onClick={handleDelete}></Button>
     </div>
   );
 };
