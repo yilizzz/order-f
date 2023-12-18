@@ -49,8 +49,9 @@ const { setPlats, changeActiveCategory, addCart } = platStore.actions;
 
 const fetchPlatList = () => {
   return async (dispatch) => {
-    const res = await axios.get("http://localhost:3001/plats");
-    dispatch(setPlats(res.data));
+    const res = await axios.get("http://localhost:3001/client/plats");
+    console.log(res.status);
+    res.status === 200 ? dispatch(setPlats(res.data)) : dispatch(setPlats([]));
   };
 };
 

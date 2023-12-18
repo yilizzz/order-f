@@ -1,4 +1,4 @@
-import ShopkeeperLogin from "../page/ShopkeeperLogin/ShopkeeperLogin";
+import BossLogin from "../page/bossLogin/bossLogin";
 import MakeMenu from "../page/MakeMenu/MakeMenu";
 import Home from "../page/Home/Home";
 
@@ -10,8 +10,8 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/shopkeeperlogin",
-    element: <ShopkeeperLogin />,
+    path: "/bosslogin",
+    element: <BossLogin />,
   },
   {
     path: "/makemenu",

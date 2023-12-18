@@ -51,7 +51,7 @@ const MakeMenu = () => {
     try {
       const res = await axios({
         method: "post",
-        url: "http://localhost:3001/plats",
+        url: "http://localhost:3001/boss/plats",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
