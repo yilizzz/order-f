@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPlatList } from "../../store/modules/platStore";
+import { fetchServiceList } from "../../store/modules/serviceStore";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
@@ -15,11 +15,11 @@ const MakeMenu = () => {
   const [price, setPrice] = useState();
   const fileUploadRef = useRef(null);
 
-  const { categories } = useSelector((state) => state.plat);
+  const { categories } = useSelector((state) => state.service);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPlatList());
+    dispatch(fetchServiceList());
   }, [dispatch]);
   const categoryOptions = categories.map((item) => ({
     name: item,
@@ -51,7 +51,7 @@ const MakeMenu = () => {
     try {
       const res = await axios({
         method: "post",
-        url: "http://localhost:3001/boss/plats",
+        url: "http://localhost:3001/boss/services",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -63,15 +63,15 @@ const MakeMenu = () => {
       console.error(error.response);
     }
   };
-  const handleDelete = () => {
-    axios({
-      method: "delete",
-      url: "http://localhost:3001/plats/23",
+  // const handleDelete = () => {
+  //   axios({
+  //     method: "delete",
+  //     url: "http://localhost:3001/plats/23",
 
-      headers: { "Content-Type": "application/json" },
-      responseType: "json",
-    });
-  };
+  //     headers: { "Content-Type": "application/json" },
+  //     responseType: "json",
+  //   });
+  // };
   // Render the form component
   return (
     <div className="flex flex-column justify-content-start align-items-center">
@@ -128,7 +128,7 @@ const MakeMenu = () => {
         </form>
         <Button label="Submit" onClick={handleSubmit}></Button>
       </Card>
-      <Button label="delete" onClick={handleDelete}></Button>
+      {/* <Button label="delete" onClick={handleDelete}></Button> */}
     </div>
   );
 };

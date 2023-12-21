@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import platReducer from "./modules/platStore";
+import serviceReducer from "./modules/serviceStore";
 import accountReducer from "./modules/accountStore";
 
 const store = configureStore({
   reducer: {
-    plat: platReducer,
+    service: serviceReducer,
     account: accountReducer,
   },
 });

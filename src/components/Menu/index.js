@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeActiveCategory } from "../../store/modules/platStore";
+import { changeActiveCategory } from "../../store/modules/serviceStore";
 import "./index.css";
 
 const Menu = () => {
-  const { categories, activeCategory } = useSelector((state) => state.plat);
+  const { categories, activeCategory } = useSelector((state) => state.service);
   const dispatch = useDispatch();
   return (
     <div className="menu">

@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const platStore = createSlice({
-  name: "plat",
+const ServiceStore = createSlice({
+  name: "service",
   initialState: {
-    platList: [],
+    serviceList: [],
     categories: [],
     activeCategory: "Plat",
     cartList: [],
   },
   reducers: {
-    setPlats(state, action) {
-      state.platList = action.payload;
-      const categories = new Set(action.payload.map((plat) => plat.category));
+    setServices(state, action) {
+      state.serviceList = action.payload;
+      const categories = new Set(action.payload.map((item) => item.category));
       state.categories = Array.from(categories);
     },
     changeActiveCategory(state, action) {
@@ -20,7 +20,7 @@ const platStore = createSlice({
     },
     addCart(state, action) {
       const item = state.cartList.find(
-        (item) => item.plat.id === action.payload.id
+        (item) => item.service._id === action.payload._id
       );
       // If this plat has been added
       if (item) {
@@ -37,7 +37,7 @@ const platStore = createSlice({
         // Add a new plat
       } else {
         state.cartList.push({
-          plat: action.payload.plat,
+          service: action.payload.service,
           count: 1,
         });
       }
@@ -45,16 +45,23 @@ const platStore = createSlice({
   },
 });
 
-const { setPlats, changeActiveCategory, addCart } = platStore.actions;
+const { setServices, changeActiveCategory, addCart } = ServiceStore.actions;
 
-const fetchPlatList = () => {
+const fetchServiceList = () => {
   return async (dispatch) => {
-    const res = await axios.get("http://localhost:3001/client/plats");
-    console.log(res.status);
-    res.status === 200 ? dispatch(setPlats(res.data)) : dispatch(setPlats([]));
+    const res = await axios.get("http://localhost:3001/client/services");
+    // const list = res.data.map((item) => {
+    //   if (typeof item.price !== "undefined") {
+    //     return parseFloat(item.price);
+    //   }
+    //   return item;
+    // });
+    res.status === 200
+      ? dispatch(setServices(res.data))
+      : dispatch(setServices([]));
   };
 };
 
-export { fetchPlatList, changeActiveCategory, addCart };
-const reducer = platStore.reducer;
+export { fetchServiceList, changeActiveCategory, addCart };
+const reducer = ServiceStore.reducer;
 export default reducer;

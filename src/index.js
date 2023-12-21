@@ -2,7 +2,7 @@ import React from "react";
 import { RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import "./styles/globals.css";
-// import App from "./page/Home/App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
 import { Provider } from "react-redux";
@@ -10,11 +10,7 @@ import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
-import router from "./router";
 
-export default function App() {
-  return <RouterProvider router={router} />;
-}
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

@@ -1,30 +1,34 @@
 // import "./App.css";
 import { Image } from "primereact/image";
+import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPlatList, addCart } from "../../store/modules/platStore";
+
+import { fetchServiceList, addCart } from "../../store/modules/serviceStore";
 import Menu from "../../components/Menu";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Count from "../../components/Count";
 import Cart from "../../components/Cart";
 
 const Home = () => {
-  const { platList, activeCategory, cartList } = useSelector(
-    (state) => state.plat
+  const navigate = useNavigate();
+  const { serviceList, activeCategory, cartList } = useSelector(
+    (state) => state.service
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchPlatList());
+    dispatch(fetchServiceList());
   }, [dispatch]);
 
   return (
     <div className="page">
       <Menu></Menu>
       <div className="plats">
-        {platList.map(
+        {serviceList.map(
           (item) =>
             activeCategory === item.category && (
               <div
-                key={item.id}
+                key={item._id}
                 className="flex flex-column justify-content-start align-items-center h-25rem w-16rem border-1 border-green-400 border-round-md m-2 p-3"
               >
                 <Image
@@ -37,20 +41,25 @@ const Home = () => {
 
                 <div className="flex flex-column m-5 gap-2">
                   <span>{item.name}</span>
-                  <span>price: {item.price}</span>
+                  <span>{item.description}</span>
+                  <span>price: {item.price["$numberDecimal"].toString()}</span>
                   <Count
                     count={
-                      cartList.find((list) => list.plat.id === item.id)
+                      cartList.find((list) => list.service._id === item._id)
                         ?.count || 0
                     }
                     onPlus={() =>
                       dispatch(
-                        addCart({ id: item.id, plat: item, State: "Plus" })
+                        addCart({ _id: item._id, service: item, State: "Plus" })
                       )
                     }
                     onMinus={() =>
                       dispatch(
-                        addCart({ id: item.id, plat: item, State: "Minus" })
+                        addCart({
+                          _id: item._id,
+                          service: item,
+                          State: "Minus",
+                        })
                       )
                     }
                   />
@@ -60,6 +69,7 @@ const Home = () => {
         )}
       </div>
       <Cart />
+      <Button onClick={() => navigate("/payment")}>Payment</Button>
     </div>
   );
 };
