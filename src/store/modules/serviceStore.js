@@ -6,7 +6,7 @@ const ServiceStore = createSlice({
   initialState: {
     serviceList: [],
     categories: [],
-    activeCategory: "Plat",
+    activeCategory: "Year of the Dragon Special",
     cartList: [],
   },
   reducers: {
@@ -50,12 +50,6 @@ const { setServices, changeActiveCategory, addCart } = ServiceStore.actions;
 const fetchServiceList = () => {
   return async (dispatch) => {
     const res = await axios.get("http://localhost:3001/client/services");
-    // const list = res.data.map((item) => {
-    //   if (typeof item.price !== "undefined") {
-    //     return parseFloat(item.price);
-    //   }
-    //   return item;
-    // });
     res.status === 200
       ? dispatch(setServices(res.data))
       : dispatch(setServices([]));

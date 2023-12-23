@@ -1,11 +1,11 @@
 import React from "react";
-import { RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import "./styles/globals.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
 import { Provider } from "react-redux";
+import StripeProvider from "./context/stripe";
 import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primeflex/primeflex.css";
@@ -16,7 +16,9 @@ root.render(
   <React.StrictMode>
     <PrimeReactProvider>
       <Provider store={store}>
-        <App />
+        <StripeProvider>
+          <App />
+        </StripeProvider>
       </Provider>
     </PrimeReactProvider>
   </React.StrictMode>

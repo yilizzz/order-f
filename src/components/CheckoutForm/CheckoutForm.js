@@ -1,18 +1,15 @@
-import {
-  PaymentElement,
-  LinkAuthenticationElement,
-} from "@stripe/react-stripe-js";
-import { useState } from "react";
-import { useStripe, useElements } from "@stripe/react-stripe-js";
-import { InputText } from "primereact/inputtext";
+import { PaymentElement } from "@stripe/react-stripe-js";
 
+import { useState, useContext } from "react";
+import { useStripe, useElements } from "@stripe/react-stripe-js";
+import { StripeContext } from "../../context/stripe";
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
+
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { customer } = useContext(StripeContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,12 +21,11 @@ export default function CheckoutForm() {
     }
 
     setIsLoading(true);
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/completion`,
+        // Context state will be lost after redirecting
+        return_url: `${window.location.origin}/completion?name=${customer.name}&email=${customer.email}`,
       },
     });
 
@@ -43,26 +39,11 @@ export default function CheckoutForm() {
     } else {
       setMessage("An unexpected error occured.");
     }
-
     setIsLoading(false);
   };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      {/* <InputText
-        placeholder="Your name"
-        onChange={(e) => setName(e.target.value)}
-      /> */}
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-        // Access the email value like so:
-        onChange={(event) => {
-          setEmail(event.value.email);
-        }}
-        //
-        // Prefill the email field like so:
-        // options={{defaultValues: {email: 'foo@bar.com'}}}
-      />
       <PaymentElement id="payment-element" />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">

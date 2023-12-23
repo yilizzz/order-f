@@ -5,21 +5,43 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchServiceList, addCart } from "../../store/modules/serviceStore";
 import Menu from "../../components/Menu";
-import { useEffect } from "react";
+import { useEffect, useState, useContext } from "react";
+import { StripeContext } from "../../context/stripe";
 import { useNavigate } from "react-router-dom";
 import Count from "../../components/Count";
 import Cart from "../../components/Cart";
+import { InputText } from "primereact/inputtext";
 
 const Home = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailValide, setEmailValide] = useState(false);
+  const { config, createIntent } = useContext(StripeContext);
   const navigate = useNavigate();
   const { serviceList, activeCategory, cartList } = useSelector(
     (state) => state.service
   );
+  const hasNameService = cartList.find(
+    (element) => element.service.name === "Your Customized Chinese Name"
+  );
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchServiceList());
   }, [dispatch]);
 
+  const toPaymentPage = () => {
+    config();
+    createIntent(name, email);
+    setTimeout(() => {
+      navigate("/payment");
+    }, 1000);
+  };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    const regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    regExp.test(email) ? setEmailValide(true) : setEmailValide(false);
+  };
   return (
     <div className="page">
       <Menu></Menu>
@@ -69,7 +91,16 @@ const Home = () => {
         )}
       </div>
       <Cart />
-      <Button onClick={() => navigate("/payment")}>Payment</Button>
+      {hasNameService !== undefined ? (
+        <InputText
+          placeholder="Your name"
+          onChange={(e) => setName(e.target.value)}
+        />
+      ) : null}
+      <InputText placeholder="Email" onChange={handleEmail} />
+      <Button disabled={!emailValide} onClick={toPaymentPage}>
+        Payment
+      </Button>
     </div>
   );
 };

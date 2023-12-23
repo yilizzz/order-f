@@ -1,10 +1,52 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useSelector } from "react-redux";
+import emailjs from "@emailjs/browser";
+import { StripeContext } from "../../context/stripe";
 
-function Completion(props) {
+function Completion() {
+  const url = new URL(window.location.href);
+  const name = url.searchParams.get("name");
+  const email = url.searchParams.get("email");
+  const { cartList } = useSelector((state) => state.service);
   const [messageBody, setMessageBody] = useState("");
-  const { stripePromise } = props;
+  const { stripePromise } = useContext(StripeContext);
 
   useEffect(() => {
+    emailjs.init("9gc1b1M2bIt0hI0jl");
+  }, []);
+
+  const sendMailOrderAndConfirmation = () => {
+    const templateParams = {
+      order_page: "Z company service",
+      name: name ? name : email,
+      email_address: email,
+      cartList: JSON.stringify(cartList),
+    };
+    emailjs.send("service_xchoq99", "template_96yskkf", templateParams).then(
+      function (response) {
+        console.log("SUCCESS!", response.status, response.text);
+      },
+      function (error) {
+        console.log("FAILED...", error);
+      }
+    );
+    const confirmTemplateParams = {
+      client_email: email,
+    };
+
+    emailjs
+      .send("service_xchoq99", "template_bpk3hu6", confirmTemplateParams)
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+  useEffect(() => {
+    sendMailOrderAndConfirmation();
     if (!stripePromise) return;
 
     stripePromise.then(async (stripe) => {
@@ -31,7 +73,7 @@ function Completion(props) {
         )
       );
     });
-  }, [stripePromise]);
+  }, []);
 
   return (
     <>
