@@ -128,7 +128,6 @@ const MakeMenu = () => {
         </form>
         <Button label="Submit" onClick={handleSubmit}></Button>
       </Card>
-      {/* <Button label="delete" onClick={handleDelete}></Button> */}
     </div>
   );
 };

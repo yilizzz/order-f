@@ -1,12 +1,14 @@
 import { PaymentElement } from "@stripe/react-stripe-js";
-
+import { useDispatch } from "react-redux";
 import { useState, useContext } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { StripeContext } from "../../context/stripe";
+import { saveCartToLocalStorage } from "../../store/modules/serviceStore";
+
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-
+  const dispatch = useDispatch();
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { customer } = useContext(StripeContext);
@@ -14,6 +16,7 @@ export default function CheckoutForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    dispatch(saveCartToLocalStorage());
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.

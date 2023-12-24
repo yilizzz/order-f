@@ -42,10 +42,28 @@ const ServiceStore = createSlice({
         });
       }
     },
+    saveCartToLocalStorage(state) {
+      try {
+        const serializedState = JSON.stringify(state.cartList);
+        console.log("save ", serializedState);
+        localStorage.setItem("cart", serializedState);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    clearCart(state) {
+      state.cartList = [];
+    },
   },
 });
 
-const { setServices, changeActiveCategory, addCart } = ServiceStore.actions;
+const {
+  setServices,
+  changeActiveCategory,
+  addCart,
+  saveCartToLocalStorage,
+  clearCart,
+} = ServiceStore.actions;
 
 const fetchServiceList = () => {
   return async (dispatch) => {
@@ -56,6 +74,12 @@ const fetchServiceList = () => {
   };
 };
 
-export { fetchServiceList, changeActiveCategory, addCart };
+export {
+  fetchServiceList,
+  changeActiveCategory,
+  addCart,
+  saveCartToLocalStorage,
+  clearCart,
+};
 const reducer = ServiceStore.reducer;
 export default reducer;

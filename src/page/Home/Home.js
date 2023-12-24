@@ -24,7 +24,12 @@ const Home = () => {
   const hasNameService = cartList.find(
     (element) => element.service.name === "Your Customized Chinese Name"
   );
-
+  const CartEmpty = cartList.length === 0;
+  //其他服务暂时不能提供
+  const hasNoOtherService =
+    cartList.find(
+      (element) => element.service.name !== "Your Customized Chinese Name"
+    ) === undefined;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchServiceList());
@@ -37,10 +42,14 @@ const Home = () => {
       navigate("/payment");
     }, 1000);
   };
+  //setEmail(e.target.value) 是异步的，这意味着 email 的值不会立即更新。
+  //因此，当你在 regExp.test(email) 中测试 email 时，你可能仍然在测试旧的 email 值，而不是用户刚刚输入的新值。
+  //解决这个问题的一种方法是直接在 regExp.test 中测试 e.target.value
   const handleEmail = (e) => {
-    setEmail(e.target.value);
+    const newEmail = e.target.value;
+    setEmail(newEmail);
     const regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    regExp.test(email) ? setEmailValide(true) : setEmailValide(false);
+    regExp.test(newEmail) ? setEmailValide(true) : setEmailValide(false);
   };
   return (
     <div className="page">
@@ -98,7 +107,10 @@ const Home = () => {
         />
       ) : null}
       <InputText placeholder="Email" onChange={handleEmail} />
-      <Button disabled={!emailValide} onClick={toPaymentPage}>
+      <Button
+        disabled={!(emailValide && hasNoOtherService && !CartEmpty)}
+        onClick={toPaymentPage}
+      >
         Payment
       </Button>
     </div>
