@@ -1,63 +1,44 @@
+:root {
+  --main-blue: #425374;
+  --blue-23: #8aaeb5;
+  --blue-24: #6999b7;
+}
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-html,
+html {
+  font-size: large;
+}
 body {
   width: 100vw;
   height: 100vh;
-  background-color: var(--green-50);
+  background-color: var(--gray-200);
   overflow-x: hidden;
+  overflow-y: hidden;
   /* Each PrimeReact theme has its own font family so it is suggested to apply it */
   font-family: var(--font-family);
   display: flex;
   flex-direction: column;
   color: var(--indigo-800);
+  border: solid 2px var(--main-blue);
 }
 
 img {
   object-fit: cover;
 }
 a {
-  color: var(--highlight-text-color);
+  text-decoration: none;
+  color: var(--orange-800);
 }
 a:visited {
-  color: var(--highlight-text-color);
-}
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-.plats {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  overflow: scroll;
-  height: 80vh;
-  width: 100vw;
-  margin: 2rem;
+  color: var(--main-blue);
 }
 
-/* .category {
-  width: 100%;
-}
-.main {
-  overflow: scroll;
-} */
-/* Media query for screens with a maximum width of 991px */
-@media (max-width: 991px) {
-  .page {
-    flex-direction: row;
-  }
-  .plats {
-    flex-direction: column;
-    flex-wrap: nowrap;
+@media only screen and (max-width: 991px) and (orientation: portrait) {
+  html {
+    font-size: small;
   }
 }
-/* Media query for screens with a maximum width of 750px */

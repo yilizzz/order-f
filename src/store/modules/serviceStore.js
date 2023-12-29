@@ -6,7 +6,7 @@ const ServiceStore = createSlice({
   initialState: {
     serviceList: [],
     categories: [],
-    activeCategory: "Year of the Dragon Special",
+    activeCategory: "2024 Special",
     cartList: [],
   },
   reducers: {
@@ -22,19 +22,19 @@ const ServiceStore = createSlice({
       const item = state.cartList.find(
         (item) => item.service._id === action.payload._id
       );
-      // If this plat has been added
+      // If this service has been added
       if (item) {
         if (action.payload.State === "Plus") {
           item.count = item.count ? item.count + 1 : 1;
         } else if (action.payload.State === "Minus" && item.count > 0) {
-          // Delete this plat from the list when it's minus action and number of this plat is 1
+          // Delete this service from the list when it's minus action and number of this service is 1
           if (item.count === 1) {
             let index = state.cartList.indexOf(item);
             state.cartList.splice(index, 1);
           }
           item.count--;
         }
-        // Add a new plat
+        // Add a new service
       } else {
         state.cartList.push({
           service: action.payload.service,
@@ -45,7 +45,6 @@ const ServiceStore = createSlice({
     saveCartToLocalStorage(state) {
       try {
         const serializedState = JSON.stringify(state.cartList);
-        console.log("save ", serializedState);
         localStorage.setItem("cart", serializedState);
       } catch (e) {
         console.log(e);

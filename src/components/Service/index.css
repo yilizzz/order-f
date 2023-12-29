@@ -1,0 +1,44 @@
+.menuService {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100vw;
+  height: 40rem;
+  border-bottom: solid 2px var(--main-blue);
+  margin: 0;
+}
+.services {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 25rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  padding: 2rem;
+}
+/* Media query for screens with a maximum width of 991px */
+@media (max-width: 991px) {
+  .menuService {
+    flex-direction: row;
+    align-items: start;
+  }
+  .services {
+    width: 70vw;
+    height: 40rem;
+  }
+  .item {
+    flex-direction: column;
+    height: 60vh;
+  }
+}

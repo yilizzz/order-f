@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/globals.css";
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
@@ -10,6 +10,7 @@ import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
+import "./styles/globals.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,0 +1,14 @@
+.banner {
+  height: 20rem;
+  width: 100vw;
+  position: relative;
+  background-size: cover; /* Adjust this value if needed */
+  background-image: url("../../assets/banner.svg");
+  background-position: 0 24%; /* Adjust these values to show the desired part of the SVG */
+}
+
+@media only screen and (max-width: 991px) {
+  .banner {
+    background-position: 0 0; /* Show the entire SVG */
+  }
+}

@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { StripeContext } from "../../context/stripe";
 import { saveCartToLocalStorage } from "../../store/modules/serviceStore";
+import "./CheckoutForm.css";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -46,9 +47,13 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="paymentForm" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <button
+        className="payButton"
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+      >
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>

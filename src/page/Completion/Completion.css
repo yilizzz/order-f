@@ -1,0 +1,34 @@
+.completion {
+  width: 100vw;
+  height: 100vh;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/full.jpg");
+  background-size: cover;
+  background-position: 50% 0%;
+  color: var(--orange-200);
+}
+.homeLink {
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  padding-top: 3rem;
+}
+.homeLink a,
+.homeLink a:visited {
+  color: var(--orange-200);
+}
+
+@media only screen and (max-width: 991px) {
+  .completion {
+    justify-content: start;
+    background-position: 10% 24%;
+    padding-top: 10rem;
+  }
+}

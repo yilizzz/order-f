@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
-// import { StripeContext } from "../../context/stripe";
+import "./Completion.css";
 
 function Completion() {
   const url = new URL(window.location.href);
   const name = url.searchParams.get("name");
   const email = url.searchParams.get("email");
   const [messageBody, setMessageBody] = useState("");
+  // const [count, setCount] = useState(10);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const sendMailOrderAndConfirmation = () => {
@@ -42,6 +45,18 @@ function Completion() {
         );
     };
     sendMailOrderAndConfirmation();
+
+    // const timer1 = setInterval(() => {
+    //   setCount((prevCount) => prevCount - 1);
+    // }, 5000);
+    const timer2 = setTimeout(() => {
+      navigate("/"); // Navigate to home after 3 seconds
+    }, 5000);
+
+    return () => {
+      // clearInterval(timer1);
+      clearTimeout(timer2);
+    }; // Clean up on unmount
     // if (!stripePromise) return;
 
     // stripePromise.then(async (stripe) => {
@@ -68,12 +83,24 @@ function Completion() {
     //     )
     //   );
     // });
-  }, [name, email]);
+  }, [name, email, navigate]);
 
   return (
-    <>
-      <h1>Thank you!</h1>
-      <a href="/">home</a>
+    <div className="completion">
+      <div className="flex flex-column gap-3">
+        <h2>Payment successful! Thank you for your order. </h2>
+        <h2>We will contact you soon.</h2>
+        <h2>Please check your email for the confirmation.</h2>
+      </div>
+      <div className="homeLink">
+        <a
+          className="w-10rem h-20rem flex justify-content-center text-3xl"
+          href="/"
+        >
+          <i className="pi pi-home text-4xl"></i>HOME
+        </a>
+      </div>
+      <p>You will be redirected to the home page in 5 seconds.</p>
       <div
         id="messages"
         role="alert"
@@ -81,7 +108,7 @@ function Completion() {
       >
         {messageBody}
       </div>
-    </>
+    </div>
   );
 }
 

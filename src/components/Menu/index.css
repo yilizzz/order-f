@@ -1,29 +1,35 @@
-.menu,
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font: bold;
+  width: 100%;
+  min-height: 6rem;
+  border-radius: 10px;
+  background-color: #8aaeb5;
+}
 .menuItem {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  color: var(--teal-200);
-}
-.menu {
-  width: 100%;
-  background: var(--blue-900);
-  justify-content: space-evenly;
-  height: 10rem;
-  margin-bottom: 20px;
-}
-.menuItem {
-  width: 23vw;
-  height: 80%;
-  border-radius: 10px;
   justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 80%;
+  margin: 6px;
+  border-radius: 10px;
   cursor: pointer;
+  color: var(--blue-200);
 }
-@media (max-width: 991px) {
+@media only screen and (max-width: 991px) {
   .menu {
     flex-direction: column;
     justify-content: start;
-    align-items: start;
-    width: 20%;
+    width: 20vw;
+    height: 40rem;
+  }
+  .menuItem {
+    width: 95%;
+    text-align: center;
   }
 }

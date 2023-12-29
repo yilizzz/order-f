@@ -16,11 +16,10 @@ const Menu = () => {
               backgroundColor:
                 activeCategory === item
                   ? "var(--orange-800)"
-                  : "var(--blue-600)",
+                  : "var(--main-blue)",
             }}
             onClick={() => dispatch(changeActiveCategory(item))}
           >
-            {/* <i className=" pi pi-fw pi-list"></i> */}
             {item}
           </div>
         );

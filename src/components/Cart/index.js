@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import Count from "../Count";
-
 import { addCart } from "../../store/modules/serviceStore";
+import "./index.css";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -12,12 +11,15 @@ const Cart = () => {
     0
   );
   return (
-    <div className="order-count flex justify-content-end align-items-end">
-      <div>Total price: {totalPrice.toFixed(2)}</div>
+    <div className="cart">
+      <div className="text-blue-700 mb-3">
+        Total: <span className="text-orange-700 ">{totalPrice.toFixed(2)}</span>{" "}
+        EUR
+      </div>
       {cartList.length > 0 ? (
         cartList.map((item) => {
           return (
-            <div key={item.service._id}>
+            <div className="cartItem" key={item.service._id}>
               <span>{item.service.name}</span>
               <Count
                 count={item.count}
@@ -44,7 +46,7 @@ const Cart = () => {
           );
         })
       ) : (
-        <div>Cart is empty</div>
+        <div className="text-blue-700">Cart is empty</div>
       )}
     </div>
   );

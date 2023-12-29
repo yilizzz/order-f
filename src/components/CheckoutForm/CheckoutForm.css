@@ -1,0 +1,27 @@
+#paymentForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 800px;
+}
+.payButton {
+  width: 6rem;
+  height: 3rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+  border: solid 1px var(--orange-700);
+  background-color: var(--orange-700);
+  color: var(--gray-300);
+}
+#payment-element {
+  width: 100%;
+}
+#button-text {
+  font-size: large;
+}
+@media only screen and (max-width: 991px) {
+  #paymentForm {
+    width: 300px;
+  }
+}

@@ -1,0 +1,13 @@
+.footer {
+  height: 7rem;
+  width: 100vw;
+  background-size: cover;
+  background-image: url("../../assets/footer.svg");
+  background-position: 50% 29%; /* Adjust these values to show the desired part of the SVG */
+}
+
+@media only screen and (max-width: 991px) {
+  .footer {
+    background-position: 0 24%; /* Show the entire SVG */
+  }
+}

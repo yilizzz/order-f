@@ -1,26 +1,23 @@
-// import "./App.css";
-import { Image } from "primereact/image";
-import { Button } from "primereact/button";
-import { useDispatch, useSelector } from "react-redux";
+import "./Home.css";
 
-import { fetchServiceList, addCart } from "../../store/modules/serviceStore";
-import Menu from "../../components/Menu";
-import { useEffect, useState, useContext } from "react";
+import { Button } from "primereact/button";
+import { useSelector } from "react-redux";
+import Cart from "../../components/Cart";
+import { useState, useContext } from "react";
 import { StripeContext } from "../../context/stripe";
 import { useNavigate } from "react-router-dom";
-import Count from "../../components/Count";
-import Cart from "../../components/Cart";
+import Service from "../../components/Service";
 import { InputText } from "primereact/inputtext";
+import Banner from "../../components/Banner";
+import Footer from "../../components/Footer";
 
 const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [emailValide, setEmailValide] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
   const { config, createIntent } = useContext(StripeContext);
   const navigate = useNavigate();
-  const { serviceList, activeCategory, cartList } = useSelector(
-    (state) => state.service
-  );
+  const { cartList } = useSelector((state) => state.service);
   const hasNameService = cartList.find(
     (element) => element.service.name === "Your Customized Chinese Name"
   );
@@ -30,10 +27,6 @@ const Home = () => {
     cartList.find(
       (element) => element.service.name !== "Your Customized Chinese Name"
     ) === undefined;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchServiceList());
-  }, [dispatch]);
 
   const toPaymentPage = () => {
     config();
@@ -49,70 +42,38 @@ const Home = () => {
     const newEmail = e.target.value;
     setEmail(newEmail);
     const regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    regExp.test(newEmail) ? setEmailValide(true) : setEmailValide(false);
+    regExp.test(newEmail) ? setEmailValid(true) : setEmailValid(false);
   };
   return (
-    <div className="page">
-      <Menu></Menu>
-      <div className="plats">
-        {serviceList.map(
-          (item) =>
-            activeCategory === item.category && (
-              <div
-                key={item._id}
-                className="flex flex-column justify-content-start align-items-center h-25rem w-16rem border-1 border-green-400 border-round-md m-2 p-3"
-              >
-                <Image
-                  src={item.image}
-                  alt="Image"
-                  width="200"
-                  height="200"
-                  preview
-                />
+    <div className="w-screen h-screen flex flex-column justify-content-center">
+      <Banner />
+      <Service option="client" />
 
-                <div className="flex flex-column m-5 gap-2">
-                  <span>{item.name}</span>
-                  <span>{item.description}</span>
-                  <span>price: {item.price["$numberDecimal"].toString()}</span>
-                  <Count
-                    count={
-                      cartList.find((list) => list.service._id === item._id)
-                        ?.count || 0
-                    }
-                    onPlus={() =>
-                      dispatch(
-                        addCart({ _id: item._id, service: item, State: "Plus" })
-                      )
-                    }
-                    onMinus={() =>
-                      dispatch(
-                        addCart({
-                          _id: item._id,
-                          service: item,
-                          State: "Minus",
-                        })
-                      )
-                    }
-                  />
-                </div>
-              </div>
-            )
-        )}
-      </div>
       <Cart />
-      {hasNameService !== undefined ? (
+      <div className="clientInfo">
+        {hasNameService !== undefined ? (
+          <InputText
+            required
+            className="w-20rem h-2rem"
+            placeholder="Your name"
+            onChange={(e) => setName(e.target.value)}
+          />
+        ) : null}
         <InputText
-          placeholder="Your name"
-          onChange={(e) => setName(e.target.value)}
+          required
+          className="w-20rem h-2rem"
+          placeholder="Email"
+          onChange={handleEmail}
         />
-      ) : null}
-      <InputText placeholder="Email" onChange={handleEmail} />
-      <Button
-        disabled={!(emailValide && hasNoOtherService && !CartEmpty)}
-        onClick={toPaymentPage}
-      >
-        Payment
-      </Button>
+        <Button
+          className="bg-blue-900 w-6rem h-2rem"
+          label="Payment"
+          disabled={!(emailValid && hasNoOtherService && !CartEmpty)}
+          onClick={toPaymentPage}
+        ></Button>
+        Pre-opening, only accepte 2024 special orders.
+      </div>
+      <Footer></Footer>
     </div>
   );
 };

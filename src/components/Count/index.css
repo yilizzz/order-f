@@ -1,4 +1,15 @@
-.minus,
-.plus {
+.count {
+  color: var(--orange-800);
+  font-weight: 600;
+  width: 1rem;
+  text-align: center;
+}
+.pi-plus,
+.pi-minus {
+  font-size: 1rem;
+  color: #425374;
   cursor: pointer;
+  padding: 1px;
+  border: solid 2px #425374;
+  border-radius: 50%;
 }
