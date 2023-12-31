@@ -3,42 +3,71 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  width: 100vw;
-  height: 40rem;
-  border-bottom: solid 2px var(--main-blue);
-  margin: 0;
+  width: 100%;
+  /* border-bottom: solid 2px var(--main-blue); */
+  margin-bottom: 2rem;
 }
 .services {
   display: flex !important;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 25rem;
+  width: 100%;
 }
 
 .item {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
   flex: 1;
-  width: 100%;
-  margin: 0;
-  padding: 2rem;
+  width: 60%;
+  height: 25rem;
+  margin: 1rem;
+  padding-top: 2rem;
+  position: relative;
 }
-/* Media query for screens with a maximum width of 991px */
-@media (max-width: 991px) {
+.itemName {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 600px) and (max-width: 991px) {
   .menuService {
     flex-direction: row;
     align-items: start;
   }
   .services {
-    width: 70vw;
-    height: 40rem;
+    width: 66%;
   }
   .item {
     flex-direction: column;
-    height: 60vh;
+    width: 100%;
+    align-items: start;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+  .itemName {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 599px) {
+  .menuService {
+    flex-direction: row;
+    align-items: start;
+  }
+  .services {
+    width: 76%;
+  }
+  .item {
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+  .itemName {
+    font-size: 1rem;
   }
 }

@@ -1,27 +1,32 @@
 #paymentForm {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+#payment-element {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 800px;
+  width: 50vw;
+  height: 25vh;
 }
 .payButton {
   width: 6rem;
-  height: 3rem;
-  margin-top: 1rem;
+  height: 2rem;
   border-radius: 5px;
   border: solid 1px var(--orange-700);
   background-color: var(--orange-700);
   color: var(--gray-300);
 }
-#payment-element {
-  width: 100%;
-}
+
 #button-text {
-  font-size: large;
+  cursor: pointer;
 }
+
 @media only screen and (max-width: 991px) {
-  #paymentForm {
-    width: 300px;
+  #payment-element {
+    width: 70vw;
   }
 }

@@ -5,25 +5,26 @@
 }
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 html {
-  font-size: large;
-}
-body {
+  font-size: 18px;
   width: 100vw;
   height: 100vh;
-  background-color: var(--gray-200);
+}
+body,
+#root {
+  max-width: 2000px;
+  min-height: 100vh;
+  margin: auto;
+  background-color: var(--bluegray-300);
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   /* Each PrimeReact theme has its own font family so it is suggested to apply it */
   font-family: var(--font-family);
-  display: flex;
-  flex-direction: column;
-  color: var(--indigo-800);
-  border: solid 2px var(--main-blue);
+  color: var(--bluegray-900);
+  /* border: solid 2px var(--main-blue); */
+  padding: 5px;
 }
 
 img {
@@ -34,11 +35,14 @@ a {
   color: var(--orange-800);
 }
 a:visited {
-  color: var(--main-blue);
+  color: var(--orange-800);
 }
 
-@media only screen and (max-width: 991px) and (orientation: portrait) {
+@media only screen and (max-width: 991px) {
   html {
     font-size: small;
+  }
+  #root {
+    min-height: 900px;
   }
 }

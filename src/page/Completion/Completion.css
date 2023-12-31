@@ -1,34 +1,47 @@
-.completion {
-  width: 100vw;
-  height: 100vh;
-  padding: 50px;
+.page {
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 100px;
+}
+.completion {
+  width: 1000px;
+  height: 1000px;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   background-image: url("../../assets/full.jpg");
-  background-size: cover;
-  background-position: 50% 0%;
+  background-size: no-repeat;
+  background-position: center;
   color: var(--orange-200);
 }
 .homeLink {
-  width: 100vw;
-  height: 10vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: start;
   align-items: center;
-  padding-top: 3rem;
 }
-.homeLink a,
-.homeLink a:visited {
-  color: var(--orange-200);
+.page p {
+  width: 80%;
+  text-align: center;
+  text-shadow: -2px 0 var(--main-blue), 0 2px var(--main-blue),
+    2px 0 var(--main-blue), 0 -2px var(--main-blue);
 }
-
 @media only screen and (max-width: 991px) {
+  .page {
+    padding-top: 0;
+  }
   .completion {
-    justify-content: start;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
     background-position: 10% 24%;
-    padding-top: 10rem;
+    padding-top: 80px;
   }
 }

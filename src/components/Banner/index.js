@@ -5,7 +5,15 @@ import icon from "../../assets/favicon.ico";
 const Banner = () => {
   return (
     <div className="banner">
-      <Image src={icon} alt="Z Service" className="absolute top-4 left-4 " />
+      <a href="/">
+        <Image
+          width="150"
+          height="150"
+          src={icon}
+          alt="Z Service"
+          className="icon"
+        />
+      </a>
     </div>
   );
 };

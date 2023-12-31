@@ -25,7 +25,7 @@ const Service = ({ option, setServiceId }) => {
     try {
       const res = await axios({
         method: "DELETE",
-        url: `http://localhost:3001/boss/services/${id}`,
+        url: `${process.env.REACT_APP_API_URL}/boss/services/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -55,62 +55,87 @@ const Service = ({ option, setServiceId }) => {
                   preview
                 />
 
-                <div className="flex flex-column m-5 gap-2">
-                  <span>{item.name}</span>
-                  {item.description.split("{").map((part, index) => (
-                    <p key={index}>{part}</p>
-                  ))}
-                  {item.price["$numberDecimal"] < 1 ? null : (
+                <div className="flex flex-column mb-5 ">
+                  <span className="itemName">{item.name}</span>
+                  {item.link ? (
                     <span>
+                      {activeCategory === "Contact" ? (
+                        <a href={item.link} target="_blank" rel="noreferrer">
+                          Email to Me!
+                        </a>
+                      ) : (
+                        <a href={item.link} target="_blank" rel="noreferrer">
+                          Click here to view case
+                        </a>
+                      )}
+                    </span>
+                  ) : null}
+                  <div>
+                    {item.description.split("{").map((part, index) => (
+                      <p key={index}>{part}</p>
+                    ))}
+                  </div>
+
+                  {item.price["$numberDecimal"] < 1 ? null : (
+                    <span className="text-orange-800">
                       Reservation Deposit :{" "}
                       {item.price["$numberDecimal"].toString()} {` EUR`}
                     </span>
                   )}
 
                   {option === "client" ? (
-                    <div className="flex justify-content-end align-items-center">
-                      <i
-                        className="pi pi-shopping-cart"
-                        style={{ fontSize: "1.5rem" }}
-                      ></i>
-                      <Count
-                        count={
-                          cartList.find((list) => list.service._id === item._id)
-                            ?.count || 0
-                        }
-                        onPlus={() =>
-                          dispatch(
-                            addCart({
-                              _id: item._id,
-                              service: item,
-                              State: "Plus",
-                            })
-                          )
-                        }
-                        onMinus={() =>
-                          dispatch(
-                            addCart({
-                              _id: item._id,
-                              service: item,
-                              State: "Minus",
-                            })
-                          )
-                        }
-                      />
-                    </div>
+                    activeCategory === "Contact" ? null : (
+                      <div className="flex justify-content-end align-items-center absolute bottom-0 right-0">
+                        <i
+                          className="pi pi-shopping-cart"
+                          style={{ fontSize: "1.5rem" }}
+                        ></i>
+                        <Count
+                          count={
+                            cartList.find(
+                              (list) => list.service._id === item._id
+                            )?.count || 0
+                          }
+                          onPlus={() =>
+                            dispatch(
+                              addCart({
+                                _id: item._id,
+                                service: item,
+                                State: "Plus",
+                              })
+                            )
+                          }
+                          onMinus={() =>
+                            dispatch(
+                              addCart({
+                                _id: item._id,
+                                service: item,
+                                State: "Minus",
+                              })
+                            )
+                          }
+                        />
+                      </div>
+                    )
                   ) : (
-                    <div className="flex justify-content-between">
+                    <div className="flex justify-content-between mt-5 w-15rem">
                       <Button
                         label="Edit"
                         icon="pi pi-pencil"
-                        style={{ backgroundColor: "var(--blue-23)" }}
+                        style={{
+                          backgroundColor: "var(--blue-23)",
+                          border: "solid 1px var(--blue-23)",
+                        }}
                         className="w-6rem h-3rem p-2"
                         onClick={() => editService(item._id)}
                       ></Button>
                       <Button
                         label="Delete"
                         icon="pi pi-trash"
-                        style={{ backgroundColor: "var(--blue-23)" }}
+                        style={{
+                          backgroundColor: "var(--blue-23)",
+                          border: "solid 1px var(--blue-23)",
+                        }}
                         className="w-6rem h-3rem p-2"
                         onClick={() => deleteServiceById(item._id)}
                       ></Button>

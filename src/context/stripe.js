@@ -9,13 +9,14 @@ export default function StripeProvider({ children }) {
   const [customer, setCustomer] = useState(null);
 
   const config = async () => {
-    fetch("http://localhost:3001/payment/config").then(async (r) => {
+    fetch(`${process.env.REACT_APP_API_URL}/payment/config`).then(async (r) => {
       const { publishableKey } = await r.json();
+      console.log(publishableKey);
       setStripePromise(loadStripe(publishableKey));
     });
   };
   const createIntent = async (name, email) => {
-    fetch("http://localhost:3001/payment/create-payment-intent", {
+    fetch(`${process.env.REACT_APP_API_URL}/payment/create-payment-intent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,6 +28,8 @@ export default function StripeProvider({ children }) {
     })
       .then((res) => res.json())
       .then(({ clientSecret, customer }) => {
+        console.log(clientSecret, customer);
+
         setClientSecret(clientSecret);
         setCustomer(customer);
       });

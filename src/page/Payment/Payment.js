@@ -9,22 +9,22 @@ import Footer from "../../components/Footer";
 const Payment = () => {
   const { stripePromise, clientSecret } = useContext(StripeContext);
   return (
-    <div className="w-screen h-screen flex gap-3 flex-column justify-content-center align-items-center">
+    <div className="w-full h-full flex flex-column justify-content-start align-items-center">
       <Banner />
 
-      <div className="m-5 p-5 h-30rem flex justify-content-center">
-        {clientSecret && stripePromise && (
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <CheckoutForm />
-          </Elements>
-        )}
-      </div>
+      {clientSecret && stripePromise && (
+        <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <CheckoutForm />
+        </Elements>
+      )}
+
       <a
-        className="w-10rem h-20rem flex justify-content-center text-3xl"
+        className="w-10rem h-6rem text-3xl flex justify-content-center align-items-center"
         href="/"
       >
         <i className="pi pi-home text-4xl"></i>HOME
       </a>
+
       <Footer />
     </div>
   );

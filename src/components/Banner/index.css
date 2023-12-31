@@ -1,14 +1,30 @@
 .banner {
   height: 20rem;
-  width: 100vw;
+  width: 100%;
+  border-radius: 10px;
   position: relative;
-  background-size: cover; /* Adjust this value if needed */
+  background-size: cover;
   background-image: url("../../assets/banner.svg");
-  background-position: 0 24%; /* Adjust these values to show the desired part of the SVG */
+  background-position: 0 30%; /* Adjust these values to show the desired part of the SVG */
+}
+.icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 2rem;
+}
+@media only screen and (orientation: landscape) and (max-width: 991px) {
+  .banner {
+    background-position: 0 0;
+  }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (orientation: portrait) and (max-width: 500px) {
   .banner {
+    height: 10rem;
     background-position: 0 0; /* Show the entire SVG */
+  }
+  .icon {
+    margin: 0;
   }
 }

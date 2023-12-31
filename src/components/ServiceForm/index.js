@@ -14,10 +14,11 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const ServiceForm = ({ serviceId, setServiceId }) => {
-  const [name, setName] = useState();
-  const [category, setCategory] = useState();
-  const [price, setPrice] = useState();
-  const [desc, setDesc] = useState();
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [desc, setDesc] = useState("");
+  const [link, setLink] = useState("");
   // const [selectChanged, setSelectChanged] = useState(false);
   const { categories } = useSelector((state) => state.service);
   const { token, logOut } = useSelector((state) => state.account);
@@ -43,6 +44,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
         setCategory(res.data.category);
         setPrice(res.data.price["$numberDecimal"].toString());
         setDesc(res.data.description);
+        setLink(res.data.link);
       }
     }
     if (serviceId) getItem();
@@ -53,6 +55,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
     setCategory("");
     setPrice("");
     setDesc("");
+    setLink("");
     fileUploadRef.current.clear();
     setServiceId(null);
   };
@@ -61,7 +64,9 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
     clear();
   };
   const handleCategory = (e) => {
-    const selected = categoryOptions.find((cate) => cate.code === e.value);
+    // if user choose a category from dropdown, set category to the selected category name
+    // otherwise, set category to the new edited category value
+    const selected = categoryOptions.find((cate) => cate.code === e.value.code);
     if (selected) {
       setCategory(selected.name);
     } else {
@@ -75,13 +80,19 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
       category: category,
       price: price,
       description: desc,
+      link: link,
     };
-    // if any key is missing, return error
-    for (const key in info) {
-      if (!info[key]) {
-        alert("Please fill in all fields.");
-        return;
-      }
+
+    //name, category, price are 3 fields required
+    const requiredFields = ["name", "category", "price"];
+
+    let missingFields = requiredFields.filter(
+      (field) => info[field] === null || info[field] === ""
+    );
+
+    if (missingFields.length > 0) {
+      alert("Missing required fields: ", missingFields);
+      return;
     }
     const list = fileUploadRef.current.getFiles();
     formData.append("image", list[0]);
@@ -91,7 +102,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
       if (serviceId) {
         await axios({
           method: "PUT",
-          url: `http://localhost:3001/boss/services/${serviceId}`,
+          url: `${process.env.REACT_APP_API_URL}/boss/services/${serviceId}`,
           data: formData,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -100,7 +111,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
       } else {
         await axios({
           method: "POST",
-          url: "http://localhost:3001/boss/services",
+          url: `${process.env.REACT_APP_API_URL}/boss/services`,
           data: formData,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -126,11 +137,13 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               <span>Name</span>
             </span>
             <InputText
-              className="h-2rem"
+              id="name"
+              className="w-full md:w-14rem h-3rem"
               value={name}
               onChange={(event) => {
                 setName(event.target.value);
               }}
+              required
             />
           </div>
           <div className="p-inputgroup flex-1 m-1">
@@ -138,13 +151,15 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               <span>Category</span>
             </span>
             <Dropdown
+              id="cate"
               value={category}
               onChange={handleCategory}
               options={categoryOptions}
               optionLabel="name"
               editable
               placeholder="Select a Category"
-              className="w-full md:w-14rem h-2rem"
+              className="w-full md:w-14rem h-3rem"
+              required
             />
           </div>
           <div className="p-inputgroup flex-1 m-1">
@@ -152,6 +167,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               <span>Description</span>
             </span>
             <InputTextarea
+              id="desc"
               autoResize
               value={desc}
               onChange={(event) => {
@@ -159,6 +175,20 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               }}
               rows={8}
               cols={30}
+              className="w-full md:w-14rem"
+            />
+          </div>
+          <div className="p-inputgroup flex-1 m-1">
+            <span className="p-inputgroup-addon w-10rem">
+              <span>Link</span>
+            </span>
+            <InputText
+              id="link"
+              className="w-full md:w-14rem h-3rem"
+              value={link}
+              onChange={(event) => {
+                setLink(event.target.value);
+              }}
             />
           </div>
           <div className="p-inputgroup flex-1 m-1">
@@ -166,7 +196,8 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               <span>Price</span>
             </span>
             <InputNumber
-              className="h-2rem"
+              id="price"
+              className="w-full md:w-14rem h-3rem"
               value={price}
               onValueChange={(event) => {
                 setPrice(event.target.value);
@@ -174,6 +205,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               mode="currency"
               currency="EUR"
               locale="fr-FR"
+              required
             />
           </div>
           <div className="p-inputgroup flex-1 m-1">
@@ -181,7 +213,8 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               <span>Picture</span>
             </span>
             <FileUpload
-              className="h-4rem"
+              id="file"
+              className="w-full md:w-14rem h-4rem"
               ref={fileUploadRef}
               name="picture"
               accept="image/*"
@@ -191,8 +224,8 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
                 label: "Choose",
                 className: "custom-choose-btn",
                 style: {
-                  margin: "20px",
-                  fontSize: "20px",
+                  margin: "10px",
+                  fontSize: "16px",
                   padding: "10px",
                   backgroundColor: "var(--main-blue)",
                 },
@@ -200,18 +233,24 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
             />
           </div>
         </form>
-        <div className="flex justify-content-between m-3">
+        <div className="flex justify-content-between m-5">
           <Button
             label="Submit"
             onClick={handleSubmit}
             className="w-6rem h-3rem"
-            style={{ backgroundColor: "var(--blue-23)" }}
+            style={{
+              backgroundColor: "var(--blue-23)",
+              border: "solid 1px var(--blue-23)",
+            }}
           ></Button>
           <Button
             label="Clear"
             onClick={handleClear}
             className="w-6rem h-3rem"
-            style={{ backgroundColor: "var(--blue-23)" }}
+            style={{
+              backgroundColor: "var(--blue-23)",
+              border: "solid 1px var(--blue-23)",
+            }}
           ></Button>
         </div>
       </Card>

@@ -1,6 +1,8 @@
 .footer {
-  height: 7rem;
-  width: 100vw;
+  margin-top: auto;
+  height: 10rem;
+  width: 100%;
+  border-radius: 10px;
   background-size: cover;
   background-image: url("../../assets/footer.svg");
   background-position: 50% 29%; /* Adjust these values to show the desired part of the SVG */

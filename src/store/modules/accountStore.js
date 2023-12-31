@@ -25,7 +25,7 @@ const logIn = (credentials) => {
     try {
       const res = await axios({
         method: "post",
-        url: "http://localhost:3001/boss/login",
+        url: `${process.env.REACT_APP_API_URL}/boss/login`,
         data: credentials,
       });
       if (res.status === 200) {

@@ -66,7 +66,9 @@ const {
 
 const fetchServiceList = () => {
   return async (dispatch) => {
-    const res = await axios.get("http://localhost:3001/client/services");
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/client/services`
+    );
     res.status === 200
       ? dispatch(setServices(res.data))
       : dispatch(setServices([]));

@@ -5,9 +5,9 @@
   align-items: center;
   font: bold;
   width: 100%;
-  min-height: 6rem;
+
   border-radius: 10px;
-  background-color: #8aaeb5;
+  background-color: var(--bluegray-300);
 }
 .menuItem {
   display: flex;
@@ -15,21 +15,53 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-  height: 80%;
-  margin: 6px;
+  height: 80px;
   border-radius: 10px;
   cursor: pointer;
   color: var(--blue-200);
+  font-size: larger;
+  font-weight: 600;
+}
+/* Target all child divs except the first and last */
+.menu > div:not(:first-child):not(:last-child) {
+  margin: 10px;
+}
+
+/* Target the first child div */
+.menu > div:first-child {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+/* Target the last child div */
+.menu > div:last-child {
+  margin-right: 0;
+  margin-left: 10px;
 }
 @media only screen and (max-width: 991px) {
   .menu {
     flex-direction: column;
     justify-content: start;
-    width: 20vw;
-    height: 40rem;
+    width: 25%;
+    /* height: 320px; */
   }
   .menuItem {
     width: 95%;
+    min-height: 80px;
     text-align: center;
+    font-size: small;
+    font-weight: 400;
+  }
+
+  .menu > div:not(:first-child):not(:last-child) {
+    margin: 5px 0;
+  }
+
+  .menu > div:first-child {
+    margin: 5px 0;
+  }
+
+  .menu > div:last-child {
+    margin: 5px 0;
   }
 }

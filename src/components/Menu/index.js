@@ -10,6 +10,7 @@ const Menu = () => {
       {categories.map((item) => {
         return (
           <div
+            id={item}
             key={item}
             className="menuItem"
             style={{

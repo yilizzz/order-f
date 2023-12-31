@@ -33,7 +33,6 @@ const BossLogin = () => {
   const navigate = useNavigate();
   // Use the useEffect hook to check the loggedIn state and redirect if true
   useEffect(() => {
-    console.log(role);
     // If the user is logged in
     if (role === "boss") {
       // Redirect to the page admin
@@ -45,14 +44,16 @@ const BossLogin = () => {
       <Banner />
       <div className="boss">
         <InputText
+          id="user"
           className="w-15rem h-2rem"
-          value={email}
+          value={email || ""}
           onChange={handleEmail}
           placeholder="email"
         />
         <InputText
+          id="password"
           className="w-15rem h-2rem"
-          value={password}
+          value={password || ""}
           onChange={handlePassword}
           placeholder="password"
         />
