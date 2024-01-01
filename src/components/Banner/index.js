@@ -7,8 +7,8 @@ const Banner = () => {
     <div className="banner">
       <a href="/">
         <Image
-          width="150"
-          height="150"
+          width="125"
+          height="125"
           src={icon}
           alt="Z Service"
           className="icon"

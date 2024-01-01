@@ -1,21 +1,24 @@
 .banner {
-  height: 20rem;
+  height: 10rem;
   width: 100%;
   border-radius: 10px;
   position: relative;
   background-size: cover;
   background-image: url("../../assets/banner.svg");
-  background-position: 0 30%; /* Adjust these values to show the desired part of the SVG */
+  background-position: 0 25%; /* Adjust these values to show the desired part of the SVG */
 }
 .icon {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 2rem;
+  margin: 1.5rem;
 }
 @media only screen and (orientation: landscape) and (max-width: 991px) {
   .banner {
-    background-position: 0 0;
+    background-position: 0 20%;
+  }
+  .icon {
+    margin: 0;
   }
 }
 

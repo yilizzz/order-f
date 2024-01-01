@@ -21,6 +21,7 @@
   color: var(--blue-200);
   font-size: larger;
   font-weight: 600;
+  text-wrap: wrap;
 }
 /* Target all child divs except the first and last */
 .menu > div:not(:first-child):not(:last-child) {
@@ -51,6 +52,7 @@
     text-align: center;
     font-size: small;
     font-weight: 400;
+    padding: 5px;
   }
 
   .menu > div:not(:first-child):not(:last-child) {

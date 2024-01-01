@@ -56,7 +56,7 @@ function Completion() {
           }
         );
     };
-    sendMailOrderAndConfirmation();
+    // sendMailOrderAndConfirmation();
 
     // const timer1 = setInterval(() => {
     //   setCount((prevCount) => prevCount - 1);

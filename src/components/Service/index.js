@@ -55,7 +55,7 @@ const Service = ({ option, setServiceId }) => {
                   preview
                 />
 
-                <div className="flex flex-column mb-5 ">
+                <div className="w-full flex flex-column align-items-start mb-5">
                   <span className="itemName">{item.name}</span>
                   {item.link ? (
                     <span>

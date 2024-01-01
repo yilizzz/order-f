@@ -4,7 +4,6 @@
   justify-content: start;
   align-items: center;
   width: 100%;
-  /* border-bottom: solid 2px var(--main-blue); */
   margin-bottom: 2rem;
 }
 .services {
@@ -16,6 +15,7 @@
 }
 
 .item {
+  margin-left: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -24,12 +24,12 @@
   flex: 1;
   width: 60%;
   height: 25rem;
-  margin: 1rem;
-  padding-top: 2rem;
+  margin-top: 50px;
   position: relative;
 }
 .itemName {
   font-size: 1.25rem;
+  margin-top: 0;
 }
 
 @media (min-width: 600px) and (max-width: 991px) {
@@ -42,13 +42,14 @@
   }
   .item {
     flex-direction: column;
-    width: 100%;
-    align-items: start;
-    margin-top: 1rem;
-    padding: 1rem;
+    width: 80%;
+    align-items: center;
+    margin: 50px;
+    padding: 0;
   }
   .itemName {
     font-size: 1.2rem;
+    margin-top: 2rem;
   }
 }
 @media (max-width: 599px) {
@@ -64,10 +65,11 @@
     width: 100%;
     align-items: start;
     margin-top: 1rem;
-    padding: 1rem;
+    padding: 2vw;
     font-size: 0.8rem;
   }
   .itemName {
     font-size: 1rem;
+    margin-top: 1.5rem;
   }
 }
