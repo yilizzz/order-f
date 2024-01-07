@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchServiceList } from "../../store/modules/serviceStore";
 import { Card } from "primereact/card";
@@ -19,11 +18,10 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
   const [link, setLink] = useState("");
-  // const [selectChanged, setSelectChanged] = useState(false);
+
   const { categories } = useSelector((state) => state.service);
-  const { token, logOut } = useSelector((state) => state.account);
+  const { token } = useSelector((state) => state.account);
   const dispatch = useDispatch();
-  // const formRef = useRef(null);
 
   const categoryOptions = categories.map((item) => ({
     name: item,
@@ -36,7 +34,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
     async function getItem() {
       const res = await axios({
         method: "get",
-        url: `http://localhost:3001/boss/services/${serviceId}`,
+        url: `${process.env.REACT_APP_API_URL}/boss/services/${serviceId}`,
       });
 
       if (res) {
@@ -59,7 +57,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
     fileUploadRef.current.clear();
     setServiceId(null);
   };
-  const navigate = useNavigate();
+
   const handleClear = () => {
     clear();
   };

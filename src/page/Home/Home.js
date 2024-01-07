@@ -15,7 +15,7 @@ const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(false);
-  const { config, createIntent, stripePromise } = useContext(StripeContext);
+  const { config, createIntent } = useContext(StripeContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -38,15 +38,6 @@ const Home = () => {
     //create payment intent
     createIntent(name, email);
     //redirect to payment page
-    // setTimeout(() => {
-    //   navigate("/payment");
-    // }, 1000);
-    // console.log("create payment");
-    // const timeoutId = setTimeout(() => {
-    // navigate("/payment");
-    // }, 3000);
-    // clearTimeout(timeoutId);
-
     const timerId = setTimeout(() => {
       setLoading(false);
     }, 1000);

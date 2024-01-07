@@ -1,15 +1,45 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { logOut } from "../../store/modules/accountStore";
 import Service from "../../components/Service/index";
 import ServiceForm from "../../components/ServiceForm/index";
 import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
+import { Button } from "primereact/button";
 const ServiceAdmin = () => {
   const [serviceId, setServiceId] = useState(null);
+  const nav = useNavigate();
+  const dispatch = useDispatch();
+  // Get the account state from the store
+  const { role } = useSelector((state) => state.account);
+
   return (
-    <div className="flex flex-column justify-content-start align-items-center">
+    <div className="w-full min-h-screen flex flex-column justify-content-center align-items-center">
       <Banner />
-      <ServiceForm serviceId={serviceId} setServiceId={setServiceId} />
-      <Service option="boss" setServiceId={setServiceId} />
+      {role === "boss" ? (
+        <>
+          <Button
+            label="Logout"
+            className="bg-teal-800"
+            onClick={() => {
+              dispatch(logOut());
+            }}
+          />
+          <ServiceForm serviceId={serviceId} setServiceId={setServiceId} />
+          <Service option="boss" setServiceId={setServiceId} />
+        </>
+      ) : (
+        <Button
+          label="Login"
+          className="bg-orange-800"
+          onClick={() => {
+            nav("/bosslogin");
+          }}
+        />
+      )}
+
       <Footer />
     </div>
   );

@@ -40,7 +40,7 @@ const BossLogin = () => {
     }
   }, [role, navigate]); // Add the dependencies to the useEffect hook
   return (
-    <div>
+    <div className="blPage">
       <Banner />
       <div className="boss">
         <InputText

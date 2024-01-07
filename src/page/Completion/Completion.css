@@ -12,7 +12,7 @@
   padding-top: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   background-image: url("../../assets/full.jpg");
   background-size: no-repeat;
@@ -20,12 +20,18 @@
   color: var(--orange-200);
 }
 .homeLink {
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
+}
+.homeLink a,
+.homeLink a:visited {
+  font-size: larger;
+  font-weight: 500;
+  color: var(--blue-200);
 }
 .page p {
   width: 80%;

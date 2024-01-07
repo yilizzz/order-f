@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { Image } from "primereact/image";
@@ -9,8 +9,6 @@ function Completion() {
   const url = new URL(window.location.href);
   const name = url.searchParams.get("name");
   const email = url.searchParams.get("email");
-  const [messageBody, setMessageBody] = useState("");
-  // const [count, setCount] = useState(10);
 
   const navigate = useNavigate();
 
@@ -65,36 +63,6 @@ function Completion() {
       navigate("/"); // Navigate to home after 3 seconds
     }, 5000);
     clearTimeout(timer2);
-    // return () => {
-    //   // clearInterval(timer1);
-    // }; // Clean up on unmount
-
-    // if (!stripePromise) return;
-
-    // stripePromise.then(async (stripe) => {
-    //   const url = new URL(window.location);
-    //   const clientSecret = url.searchParams.get("payment_intent_client_secret");
-    //   const { error, paymentIntent } = await stripe.retrievePaymentIntent(
-    //     clientSecret
-    //   );
-
-    //   setMessageBody(
-    //     error ? (
-    //       `> ${error.message}`
-    //     ) : (
-    //       <>
-    //         &gt; Payment {paymentIntent.status}:{" "}
-    //         <a
-    //           href={`https://dashboard.stripe.com/test/payments/${paymentIntent.id}`}
-    //           target="_blank"
-    //           rel="noreferrer"
-    //         >
-    //           {paymentIntent.id}
-    //         </a>
-    //       </>
-    //     )
-    //   );
-    // });
   }, [name, email, navigate]);
 
   return (
@@ -108,18 +76,14 @@ function Completion() {
         </div>
         <div className="homeLink">
           <a href="/">
-            <Image width="50" height="50" src={icon} alt="Z Service" />
+            <div className="flex justify-content-center align-items-center">
+              <i className="pi pi-external-link"></i>
+              {"\u00A0"}HOME
+            </div>
+            <Image width="80" height="80" src={icon} alt="Z Service" />
           </a>
-          <p>You will be redirected to the home page in 5 seconds.</p>
+          {/* <p>You will be redirected to the home page in 5 seconds.</p> */}
         </div>
-
-        {/* <div
-        id="messages"
-        role="alert"
-        style={messageBody ? { display: "block" } : {}}
-      >
-        {messageBody}
-      </div> */}
       </div>
     </div>
   );
