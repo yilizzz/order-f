@@ -28,8 +28,6 @@ export default function StripeProvider({ children }) {
     })
       .then((res) => res.json())
       .then(({ clientSecret, customer }) => {
-        console.log(clientSecret, customer);
-
         setClientSecret(clientSecret);
         setCustomer(customer);
       });

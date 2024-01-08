@@ -1,6 +1,6 @@
 .footer {
   margin-top: auto;
-  height: 10rem;
+  height: 150px;
   width: 100%;
   border-radius: 10px;
   background-size: cover;
@@ -10,7 +10,6 @@
 
 @media only screen and (max-width: 991px) {
   .footer {
-    margin-top: auto;
     background-position: 0 24%; /* Show the entire SVG */
   }
 }

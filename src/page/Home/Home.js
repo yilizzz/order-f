@@ -54,47 +54,49 @@ const Home = () => {
     regExp.test(newEmail) ? setEmailValid(true) : setEmailValid(false);
   };
   return (
-    <div className="homePage">
-      <Banner />
-      <Service option="client" />
+    <div className="fullPage">
+      <div className="main">
+        <Banner />
+        <Service option="client" />
 
-      <Cart />
-      <form className="clientInfo">
-        {hasNameService !== undefined ? (
+        <Cart />
+        <form className="clientInfo">
+          {hasNameService !== undefined ? (
+            <span className="p-float-label">
+              <InputText
+                id="name"
+                required
+                className="w-20rem h-2rem"
+                onChange={(e) => setName(e.target.value)}
+                autoComplete="true"
+              />
+              <label htmlFor="name">Your name</label>
+            </span>
+          ) : null}
           <span className="p-float-label">
             <InputText
-              id="name"
+              id="email"
               required
               className="w-20rem h-2rem"
-              onChange={(e) => setName(e.target.value)}
+              placeholder="Email"
+              onChange={handleEmail}
               autoComplete="true"
             />
-            <label htmlFor="name">Your name</label>
+            <label htmlFor="email">Your Email</label>
           </span>
-        ) : null}
-        <span className="p-float-label">
-          <InputText
-            id="email"
-            required
-            className="w-20rem h-2rem"
-            placeholder="Email"
-            onChange={handleEmail}
-            autoComplete="true"
-          />
-          <label htmlFor="email">Your Email</label>
-        </span>
-        <Button
-          className="bg-orange-700 w-8rem h-2rem"
-          label="Payment"
-          disabled={!(emailValid && hasNoOtherService && !CartEmpty && name)}
-          onClick={toPaymentPage}
-          loading={loading}
-        ></Button>
-        <span className="text-center mb-5">
-          Pre-opening, only accepte 2024 special orders.
-        </span>
-      </form>
-      <Footer></Footer>
+          <Button
+            className="bg-orange-700 w-8rem h-2rem"
+            label="Payment"
+            disabled={!(emailValid && hasNoOtherService && !CartEmpty && name)}
+            onClick={toPaymentPage}
+            loading={loading}
+          ></Button>
+          <span className="text-center mb-5">
+            Pre-opening, only accepte 2024 special orders.
+          </span>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 };

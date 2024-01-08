@@ -40,24 +40,26 @@ const BossLogin = () => {
     }
   }, [role, navigate]); // Add the dependencies to the useEffect hook
   return (
-    <div className="blPage">
+    <div className="fullPage">
       <Banner />
-      <div className="boss">
-        <InputText
-          id="user"
-          className="w-15rem h-2rem"
-          value={email || ""}
-          onChange={handleEmail}
-          placeholder="email"
-        />
-        <InputText
-          id="password"
-          className="w-15rem h-2rem"
-          value={password || ""}
-          onChange={handlePassword}
-          placeholder="password"
-        />
-        <Button label="Submit" onClick={handleSubmit}></Button>
+      <div className="main">
+        <div className="boss">
+          <InputText
+            id="user"
+            className="w-15rem h-2rem"
+            value={email || ""}
+            onChange={handleEmail}
+            placeholder="email"
+          />
+          <InputText
+            id="password"
+            className="w-15rem h-2rem"
+            value={password || ""}
+            onChange={handlePassword}
+            placeholder="password"
+          />
+          <Button label="Submit" onClick={handleSubmit}></Button>
+        </div>
       </div>
       <Footer />
     </div>

@@ -16,30 +16,31 @@ const ServiceAdmin = () => {
   const { role } = useSelector((state) => state.account);
 
   return (
-    <div className="w-full min-h-screen flex flex-column justify-content-center align-items-center">
-      <Banner />
-      {role === "boss" ? (
-        <>
+    <div className="fullPage">
+      <div className="main">
+        <Banner />
+        {role === "boss" ? (
+          <>
+            <Button
+              label="Logout"
+              className="bg-teal-800"
+              onClick={() => {
+                dispatch(logOut());
+              }}
+            />
+            <ServiceForm serviceId={serviceId} setServiceId={setServiceId} />
+            <Service option="boss" setServiceId={setServiceId} />
+          </>
+        ) : (
           <Button
-            label="Logout"
-            className="bg-teal-800"
+            label="Login"
+            className="bg-orange-800"
             onClick={() => {
-              dispatch(logOut());
+              nav("/bosslogin");
             }}
           />
-          <ServiceForm serviceId={serviceId} setServiceId={setServiceId} />
-          <Service option="boss" setServiceId={setServiceId} />
-        </>
-      ) : (
-        <Button
-          label="Login"
-          className="bg-orange-800"
-          onClick={() => {
-            nav("/bosslogin");
-          }}
-        />
-      )}
-
+        )}
+      </div>
       <Footer />
     </div>
   );

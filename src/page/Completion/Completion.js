@@ -16,7 +16,7 @@ function Completion() {
     const sendMailOrderAndConfirmation = () => {
       emailjs.init(`${process.env.REACT_APP_EMAIL_SERVICE_ID}`);
       const templateParams = {
-        order_page: "Z company service",
+        order_page: "Z service",
         name: name ? name : email,
         email_address: email,
         cartList: localStorage.getItem("cart"),
@@ -54,7 +54,7 @@ function Completion() {
           }
         );
     };
-    // sendMailOrderAndConfirmation();
+    sendMailOrderAndConfirmation();
 
     // const timer1 = setInterval(() => {
     //   setCount((prevCount) => prevCount - 1);
@@ -66,7 +66,7 @@ function Completion() {
   }, [name, email, navigate]);
 
   return (
-    <div className="page">
+    <div className="fullPage">
       <div className="completion">
         <div className="flex flex-column align-items-center m-3 ">
           <h1>Payment successful!</h1>
