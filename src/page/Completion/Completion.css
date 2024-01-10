@@ -1,15 +1,21 @@
+.cPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .completion {
-  width: 1000px;
-  height: 1000px;
-  padding-top: 100px;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-image: url("../../assets/full.jpg");
-  background-size: no-repeat;
-  background-position: center;
+  background-image: url("../../assets/full.svg");
+  background-size: cover;
+  background-position: 0% 0%;
   color: var(--orange-200);
+  padding-top: 220px;
 }
 .homeLink {
   width: 100px;
@@ -25,20 +31,14 @@
   font-weight: 500;
   color: var(--blue-200);
 }
-.page p {
+.cPage p {
   width: 80%;
   text-align: center;
   text-shadow: -2px 0 var(--main-blue), 0 2px var(--main-blue),
     2px 0 var(--main-blue), 0 -2px var(--main-blue);
 }
-@media only screen and (max-width: 991px) {
-  .page {
-    padding-top: 0;
-  }
+@media only screen and (max-width: 1023px) {
   .completion {
-    width: 100vw;
-    height: 100vh;
-    background-size: cover;
     background-position: 10% 24%;
     padding-top: 80px;
   }

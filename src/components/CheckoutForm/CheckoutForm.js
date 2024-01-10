@@ -5,6 +5,7 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { StripeContext } from "../../context/stripe";
 import { saveCartToLocalStorage } from "../../store/modules/serviceStore";
 import "./CheckoutForm.css";
+import { LanguageContext } from "../../context/language";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -13,7 +14,8 @@ export default function CheckoutForm() {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { customer } = useContext(StripeContext);
-
+  const { language } = useContext(LanguageContext);
+  const lang = language === "English" ? "en" : "fr";
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,7 +31,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Context state will be lost after redirecting
-        return_url: `${window.location.origin}/completion?name=${customer.name}&email=${customer.email}`,
+        return_url: `${window.location.origin}/completion?name=${customer.name}&email=${customer.email}&lang=${lang}`,
       },
     });
 

@@ -1,4 +1,5 @@
 import "./index.css";
+import React from "react";
 import { Image } from "primereact/image";
 import icon from "../../assets/favicon.ico";
 

@@ -4,11 +4,13 @@ import emailjs from "@emailjs/browser";
 import { Image } from "primereact/image";
 import icon from "../../assets/favicon.ico";
 import "./Completion.css";
+import { messages } from "../../script/langScript";
 
 function Completion() {
   const url = new URL(window.location.href);
   const name = url.searchParams.get("name");
   const email = url.searchParams.get("email");
+  const language = url.searchParams.get("lang");
 
   const navigate = useNavigate();
 
@@ -66,13 +68,22 @@ function Completion() {
   }, [name, email, navigate]);
 
   return (
-    <div className="fullPage">
+    <div className="cPage">
       <div className="completion">
         <div className="flex flex-column align-items-center m-3 ">
-          <h1>Payment successful!</h1>
-          <p> Thank you for your order. </p>
-          <p>We will contact you soon.</p>
-          <p>Please check your email for the confirmation.</p>
+          {language === "en" ? (
+            <>
+              <h1>{messages.en.completionTipH}</h1>
+              <p>{messages.en.completionTipP1}</p>
+              <p>{messages.en.completionTipP2}</p>
+            </>
+          ) : (
+            <>
+              <h1>{messages.fr.completionTipH}</h1>
+              <p>{messages.fr.completionTipP1}</p>
+              <p>{messages.fr.completionTipP2}</p>
+            </>
+          )}
         </div>
         <div className="homeLink">
           <a href="/">

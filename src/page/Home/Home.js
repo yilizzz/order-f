@@ -10,26 +10,30 @@ import Service from "../../components/Service";
 import { InputText } from "primereact/inputtext";
 import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
+import LanguageSlide from "../../components/LanguageSlide";
+import { LanguageContext } from "../../context/language";
+import { messages } from "../../script/langScript";
 
 const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(false);
   const { config, createIntent } = useContext(StripeContext);
-
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { cartList } = useSelector((state) => state.service);
-  const hasNameService = cartList.find(
-    (element) => element.service.name === "Your Customized Chinese Name"
-  );
+  const { language } = useContext(LanguageContext);
   const CartEmpty = cartList.length === 0;
-  //其他服务暂时不能提供
-  const hasNoOtherService =
-    cartList.find(
-      (element) => element.service.name !== "Your Customized Chinese Name"
-    ) === undefined;
+  //pre-opening, only accepte name service
+  //Array.every : In particular, for an empty array, it returns true.
+  const hasOnlyNameService =
+    !CartEmpty &&
+    cartList.every(
+      (element) =>
+        element.service.name === "Your Customized Chinese Name" ||
+        element.service.name === "Votre Nom Chinois Personnalisé"
+    );
 
   const toPaymentPage = () => {
     setLoading(true);
@@ -55,13 +59,16 @@ const Home = () => {
   };
   return (
     <div className="fullPage">
+      <div className="lang-option">
+        <LanguageSlide />
+      </div>
       <div className="main">
         <Banner />
         <Service option="client" />
 
         <Cart />
         <form className="clientInfo">
-          {hasNameService !== undefined ? (
+          {hasOnlyNameService ? (
             <span className="p-float-label">
               <InputText
                 id="name"
@@ -87,15 +94,18 @@ const Home = () => {
           <Button
             className="bg-orange-700 w-8rem h-2rem"
             label="Payment"
-            disabled={!(emailValid && hasNoOtherService && !CartEmpty && name)}
+            disabled={!(emailValid && hasOnlyNameService && name)}
             onClick={toPaymentPage}
             loading={loading}
           ></Button>
           <span className="text-center mb-5">
-            Pre-opening, only accepte 2024 special orders.
+            {language === "English"
+              ? messages.en.homePageTip
+              : messages.fr.homePageTip}
           </span>
         </form>
       </div>
+
       <Footer />
     </div>
   );

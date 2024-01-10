@@ -11,9 +11,19 @@ const ServiceStore = createSlice({
   },
   reducers: {
     setServices(state, action) {
-      state.serviceList = action.payload;
-      const categories = new Set(action.payload.map((item) => item.category));
+      // state.serviceList = action.payload;
+      // const categories = new Set(action.payload.map((item) => item.category));
+      // state.categories = Array.from(categories);
+      state.serviceList = action.payload.services;
+      const categories = new Set(
+        action.payload.services.map((item) => item.category)
+      );
       state.categories = Array.from(categories);
+      // 根据 language 设置 activeCategory
+      state.activeCategory =
+        action.payload.language === "Français"
+          ? "Offre spéciale 2024"
+          : "2024 Special";
     },
     changeActiveCategory(state, action) {
       state.activeCategory = action.payload;
@@ -64,14 +74,14 @@ const {
   clearCart,
 } = ServiceStore.actions;
 
-const fetchServiceList = () => {
+const fetchServiceList = (language) => {
   return async (dispatch) => {
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/client/services`
+      `${process.env.REACT_APP_API_URL}/client/services?language=${language}`
     );
     res.status === 200
-      ? dispatch(setServices(res.data))
-      : dispatch(setServices([]));
+      ? dispatch(setServices({ services: res.data, language }))
+      : dispatch(setServices({ services: [], language }));
   };
 };
 

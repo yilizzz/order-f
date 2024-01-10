@@ -5,16 +5,20 @@ import React from "react";
 import { StripeContext } from "../../context/stripe";
 import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
+import { LanguageContext } from "../../context/language";
+import { messages } from "../../script/langScript";
 
 const Payment = () => {
   const { stripePromise, clientSecret } = useContext(StripeContext);
+  const { language } = useContext(LanguageContext);
   return (
     <div className="fullPage">
       <div className="main">
         <Banner />
         <span className="w-11 h-3rem mt-5 text-orange-800 text-center">
-          During the pre-opening period, please use your gift card number to pay
-          :
+          {language === "English"
+            ? messages.en.paymentTip
+            : messages.fr.paymentTip}
         </span>
         <span className="w-11 h-3rem mt-2 text-orange-800 text-center">
           4242 4242 4242 4242

@@ -1,7 +1,8 @@
 import Menu from "../Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchServiceList, addCart } from "../../store/modules/serviceStore";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { LanguageContext } from "../../context/language";
 import { Image } from "primereact/image";
 import Count from "../Count";
 import { Button } from "primereact/button";
@@ -9,6 +10,7 @@ import "./index.css";
 import axios from "axios";
 
 const Service = ({ option, setServiceId }) => {
+  const { language } = useContext(LanguageContext);
   const { serviceList, activeCategory, cartList } = useSelector(
     (state) => state.service
   );
@@ -16,8 +18,8 @@ const Service = ({ option, setServiceId }) => {
   const { token } = useSelector((state) => state.account);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchServiceList());
-  }, [dispatch]);
+    dispatch(fetchServiceList(language));
+  }, [dispatch, language]);
   const editService = (id) => {
     setServiceId(id);
   };

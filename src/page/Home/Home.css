@@ -9,6 +9,12 @@
   gap: 2rem;
   margin: 1rem;
 }
+.lang-option {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  z-index: 1;
+}
 @media (max-width: 991px) {
   .clientInfo {
     padding: 0;
