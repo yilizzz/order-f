@@ -6,7 +6,7 @@ const ServiceStore = createSlice({
   initialState: {
     serviceList: [],
     categories: [],
-    activeCategory: "2024 Special",
+    activeCategory: "",
     cartList: [],
   },
   reducers: {
@@ -21,7 +21,7 @@ const ServiceStore = createSlice({
       state.categories = Array.from(categories);
       // 根据 language 设置 activeCategory
       state.activeCategory =
-        action.payload.language === "Français"
+        action.payload.language === "fr"
           ? "Offre spéciale 2024"
           : "2024 Special";
     },

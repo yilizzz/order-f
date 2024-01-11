@@ -16,9 +16,7 @@ const Payment = () => {
       <div className="main">
         <Banner />
         <span className="w-11 h-3rem mt-5 text-orange-800 text-center">
-          {language === "English"
-            ? messages.en.paymentTip
-            : messages.fr.paymentTip}
+          {`${messages[language].paymentTip}`}
         </span>
         <span className="w-11 h-3rem mt-2 text-orange-800 text-center">
           4242 4242 4242 4242

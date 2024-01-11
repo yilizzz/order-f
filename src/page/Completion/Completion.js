@@ -62,7 +62,7 @@ function Completion() {
     //   setCount((prevCount) => prevCount - 1);
     // }, 5000);
     const timer2 = setTimeout(() => {
-      navigate("/"); // Navigate to home after 3 seconds
+      navigate("/");
     }, 5000);
     clearTimeout(timer2);
   }, [name, email, navigate]);
@@ -71,19 +71,9 @@ function Completion() {
     <div className="cPage">
       <div className="completion">
         <div className="flex flex-column align-items-center m-3 ">
-          {language === "en" ? (
-            <>
-              <h1>{messages.en.completionTipH}</h1>
-              <p>{messages.en.completionTipP1}</p>
-              <p>{messages.en.completionTipP2}</p>
-            </>
-          ) : (
-            <>
-              <h1>{messages.fr.completionTipH}</h1>
-              <p>{messages.fr.completionTipP1}</p>
-              <p>{messages.fr.completionTipP2}</p>
-            </>
-          )}
+          <h1> {`${messages[language].completionTipH}`}</h1>
+          <p>{`${messages[language].completionTipP1}`}</p>
+          <p>{`${messages[language].completionTipP2}`}</p>
         </div>
         <div className="homeLink">
           <a href="/">

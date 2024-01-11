@@ -6,6 +6,7 @@ import { StripeContext } from "../../context/stripe";
 import { saveCartToLocalStorage } from "../../store/modules/serviceStore";
 import "./CheckoutForm.css";
 import { LanguageContext } from "../../context/language";
+import { messages } from "../../script/langScript";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -15,7 +16,7 @@ export default function CheckoutForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { customer } = useContext(StripeContext);
   const { language } = useContext(LanguageContext);
-  const lang = language === "English" ? "en" : "fr";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,7 +32,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Context state will be lost after redirecting
-        return_url: `${window.location.origin}/completion?name=${customer.name}&email=${customer.email}&lang=${lang}`,
+        return_url: `${window.location.origin}/completion?name=${customer.name}&email=${customer.email}&lang=${language}`,
       },
     });
 
@@ -57,7 +58,11 @@ export default function CheckoutForm() {
         id="submit"
       >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? (
+            <div className="spinner" id="spinner"></div>
+          ) : (
+            `${messages[language].buttonPayNow}`
+          )}
         </span>
       </button>
       {/* Show any error or success messages */}

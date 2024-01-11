@@ -77,7 +77,7 @@ const Home = () => {
                 onChange={(e) => setName(e.target.value)}
                 autoComplete="true"
               />
-              <label htmlFor="name">Your name</label>
+              <label htmlFor="name">{`${messages[language].nameLabel}`}</label>
             </span>
           ) : null}
           <span className="p-float-label">
@@ -89,19 +89,17 @@ const Home = () => {
               onChange={handleEmail}
               autoComplete="true"
             />
-            <label htmlFor="email">Your Email</label>
+            <label htmlFor="email">Email</label>
           </span>
           <Button
             className="bg-orange-700 w-8rem h-2rem"
-            label="Payment"
+            label={`${messages[language].buttonPay}`}
             disabled={!(emailValid && hasOnlyNameService && name)}
             onClick={toPaymentPage}
             loading={loading}
           ></Button>
           <span className="text-center mb-5">
-            {language === "English"
-              ? messages.en.homePageTip
-              : messages.fr.homePageTip}
+            {`${messages[language].homePageTip}`}
           </span>
         </form>
       </div>

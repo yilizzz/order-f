@@ -13,7 +13,7 @@ import "primeicons/primeicons.css";
 import "./styles/globals.css";
 
 function Root() {
-  const [language, setLanguage] = useState("Français");
+  const [language, setLanguage] = useState("fr");
 
   return (
     <React.StrictMode>

@@ -8,6 +8,7 @@ import Count from "../Count";
 import { Button } from "primereact/button";
 import "./index.css";
 import axios from "axios";
+import { messages } from "../../script/langScript";
 
 const Service = ({ option, setServiceId }) => {
   const { language } = useContext(LanguageContext);
@@ -57,17 +58,18 @@ const Service = ({ option, setServiceId }) => {
                   preview
                 />
 
-                <div className="w-full flex flex-column align-items-start mb-5">
+                <div className="w-full flex flex-column align-items-start mb-5 gap-3">
                   <span className="itemName">{item.name}</span>
                   {item.link ? (
                     <span>
                       {activeCategory === "Contact" ? (
                         <a href={item.link} target="_blank" rel="noreferrer">
-                          Email to Me!
+                          Email
                         </a>
                       ) : (
                         <a href={item.link} target="_blank" rel="noreferrer">
-                          Click here to view case
+                          <i className="pi pi-external-link"></i>
+                          {`${messages[language].linkCase}`}
                         </a>
                       )}
                     </span>
@@ -80,7 +82,8 @@ const Service = ({ option, setServiceId }) => {
 
                   {item.price["$numberDecimal"] < 1 ? null : (
                     <span className="text-orange-800">
-                      Reservation Deposit :{" "}
+                      <i className="pi pi-wallet"></i>
+                      {`${messages[language].price}`}
                       {item.price["$numberDecimal"].toString()} {` EUR`}
                     </span>
                   )}
