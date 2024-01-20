@@ -12,6 +12,7 @@ import { messages } from "../../script/langScript";
 
 const Service = ({ option, setServiceId }) => {
   const { language } = useContext(LanguageContext);
+
   const { serviceList, activeCategory, cartList } = useSelector(
     (state) => state.service
   );
@@ -28,14 +29,14 @@ const Service = ({ option, setServiceId }) => {
     try {
       const res = await axios({
         method: "DELETE",
-        url: `${process.env.REACT_APP_API_URL}/boss/services/${id}`,
+        url: `${process.env.REACT_APP_API_URL}/boss/services/${id}/${language}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if (res.status === 200) {
         alert("Delete successfully.");
-        dispatch(fetchServiceList());
+        dispatch(fetchServiceList(language));
       }
     } catch (error) {
       alert("Delete failed.");

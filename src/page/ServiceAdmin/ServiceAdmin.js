@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import LanguageSlide from "../../components/LanguageSlide";
 
 import { logOut } from "../../store/modules/accountStore";
 import Service from "../../components/Service/index";
@@ -17,6 +18,9 @@ const ServiceAdmin = () => {
 
   return (
     <div className="fullPage">
+      <div className="lang-option">
+        <LanguageSlide />
+      </div>
       <div className="main">
         <Banner />
         {role === "boss" ? (

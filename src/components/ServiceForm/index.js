@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchServiceList } from "../../store/modules/serviceStore";
+import { LanguageContext } from "../../context/language";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
@@ -13,6 +14,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const ServiceForm = ({ serviceId, setServiceId }) => {
+  const { language } = useContext(LanguageContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -34,7 +36,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
     async function getItem() {
       const res = await axios({
         method: "get",
-        url: `${process.env.REACT_APP_API_URL}/boss/services/${serviceId}`,
+        url: `${process.env.REACT_APP_API_URL}/boss/services/${serviceId}/${language}`,
       });
 
       if (res) {
@@ -46,7 +48,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
       }
     }
     if (serviceId) getItem();
-  }, [serviceId]);
+  }, [serviceId, language]);
 
   const clear = () => {
     setName("");
@@ -100,7 +102,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
       if (serviceId) {
         await axios({
           method: "PUT",
-          url: `${process.env.REACT_APP_API_URL}/boss/services/${serviceId}`,
+          url: `${process.env.REACT_APP_API_URL}/boss/services/${serviceId}/${language}`,
           data: formData,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,7 +111,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
       } else {
         await axios({
           method: "POST",
-          url: `${process.env.REACT_APP_API_URL}/boss/services`,
+          url: `${process.env.REACT_APP_API_URL}/boss/services/${language}`,
           data: formData,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -118,7 +120,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
       }
       alert("Update service successfully.");
 
-      dispatch(fetchServiceList());
+      dispatch(fetchServiceList(language));
     } catch (error) {
       alert("Update service failed.");
       console.error(error);
@@ -155,7 +157,7 @@ const ServiceForm = ({ serviceId, setServiceId }) => {
               options={categoryOptions}
               optionLabel="name"
               editable
-              placeholder="Select a Category"
+              placeholder="Select a Category or input a new one"
               className="w-full md:w-14rem h-3rem"
               required
             />
